@@ -11,11 +11,16 @@ export default class User {
   @Unique()
   name: string;
 
-  @OneToOne('Credential', {mappedBy: 'user', cascade: [Cascade.REMOVE]})
-  credential: Credential;
+  @Property({type: 'text'})
+  @Unique()
+  email: string;
 
-  constructor(name: string, credential: Credential) {
-    this.name = name;
-    this.credential = credential;
+  @OneToOne('Credential', {mappedBy: 'user', cascade: [Cascade.REMOVE]})
+  credential?: Credential;
+
+  constructor(p: {name: string, credential?: Credential, email: string}) {
+    this.name = p.name
+    this.credential = p.credential
+    this.email = p.email
   }
 }

@@ -16,7 +16,7 @@ const isLoginValid = async (username : string, password : string) => {
         if (user.credential === null)
             throw 'User has no credential';
 
-        return checkCredential(password, user.credential);
+        return checkCredential(password, user.credential!);
     } catch (err) {
         console.log(err);
         return false;

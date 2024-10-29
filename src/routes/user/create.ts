@@ -6,8 +6,9 @@ import Credential from "../../entities/credential.entity.js";
 const userCreateHandler = async (req: Request, res: Response, next: NextFunction) => {
     const username = process.env.TESTUSER_NAME!;
     const password = process.env.TESTUSER_PASSWORD!;
+    const email = process.env.TESTUSER_EMAIL!;
 
-    if (!username || !password)
+    if (!username || !password || !email)
     {
         res.status(500).send('Test user is not defined')
         return;
@@ -20,7 +21,11 @@ const userCreateHandler = async (req: Request, res: Response, next: NextFunction
         return;
     }
 
-    const user = new User(username, new Credential(password));
+    const user = new User({
+        name: username,
+        credential: new Credential(password),
+        email: email
+    });
 
     orm.em.persist(user);
 

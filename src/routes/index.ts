@@ -19,7 +19,12 @@ const addRoutes = (app: Express) => {
         res.send('<form action="/user/login" method="post">' +
                  'Username: <input name="user"><br>' +
                  'Password: <input name="password" type="password"><br>' +
-                 '<input type="submit" text="Login"></form>')
+                 '<input type="submit" text="Login"></form>' +
+                 '<br/><br/>' +
+                 '<form action="/user/otac/send" method="post">' +
+                 'Email address: <input name="email"><br>' +
+                 '<input type="submit" text="Send login link"></form>'
+                );
     });
 
     app.use('/user', userRouter);
