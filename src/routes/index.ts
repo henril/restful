@@ -21,6 +21,10 @@ const addRoutes = (app: Express) => {
                  'Password: <input name="password" type="password"><br>' +
                  '<input type="submit" text="Login"></form>' +
                  '<br/><br/>' +
+                 '<form action="/user/password/sendToken" method="post">' +
+                 'Email: <input name="email"><br>' +
+                 '<input type="submit" value="Change password"></form>' +
+                 '<br/><br/>' +
                  '<form action="/user/otac/send" method="post">' +
                  'Email address: <input name="email"><br>' +
                  '<input type="submit" text="Send login link"></form>'
