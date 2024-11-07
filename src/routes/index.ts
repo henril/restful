@@ -1,5 +1,6 @@
-import { Express } from 'express';
+import { Express, NextFunction, RequestHandler, Request, Response } from 'express';
 import userRouter from './user/index.js';
+import errorHandled from './errorHandled.js'
 
 const addRoutes = (app: Express) => {
     function isAuthenticated (req : Express.Request, _ : any, next : any) {
@@ -7,15 +8,15 @@ const addRoutes = (app: Express) => {
         else next('route')
     }
     
-    app.get('/', isAuthenticated, (req, res) => {
+    app.get('/', isAuthenticated, errorHandled((req, res) => {
         res.send('<div>' +
                  `Logged in as ${req.session.user}` +
                  '<br/><br/><a href="/user/logout">Log out</a>' +
                  '</div>'
         );
-    });
+    }));
 
-    app.get('/', (req, res) => {
+    app.get('/', errorHandled((req, res) => {
         res.send('<form action="/user/login" method="post">' +
                  'Username: <input name="user"><br>' +
                  'Password: <input name="password" type="password"><br>' +
@@ -29,7 +30,7 @@ const addRoutes = (app: Express) => {
                  'Email address: <input name="email"><br>' +
                  '<input type="submit" text="Send login link"></form>'
                 );
-    });
+    }));
 
     app.use('/user', userRouter);
 }
